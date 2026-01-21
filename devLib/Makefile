@@ -40,6 +40,7 @@ CC	?= gcc
 INCLUDE	= -I.
 DEFS	= -D_GNU_SOURCE
 CFLAGS	= $(DEBUG) $(DEFS) -Wformat=2 -Wall -Winline $(INCLUDE) -pipe -fPIC $(EXTRA_CFLAGS)
+LDFLAGS ?= ""
 
 LIBS    =
 
@@ -68,7 +69,7 @@ $(STATIC):	$(OBJ)
 
 $(DYNAMIC):	$(OBJ)
 	$Q echo "[Link (Dynamic)]"
-	$Q $(CC) -shared -Wl,-soname,libwiringPiDev.so$(WIRINGPI_SONAME_SUFFIX) -o libwiringPiDev.so.$(VERSION) -lpthread $(OBJ)
+	$Q $(CC) -shared -Wl,-soname,libwiringPiDev.so$(WIRINGPI_SONAME_SUFFIX)  $(LDFLAGS) -o libwiringPiDev.so.$(VERSION) -lpthread $(OBJ)
 
 .c.o:
 	$Q echo [Compile] $<
